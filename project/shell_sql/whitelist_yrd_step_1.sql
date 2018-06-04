@@ -1,3 +1,4 @@
+CREATE TABLE  whitelist_yrd_step_1 AS
 select * from (
 select
 row_number() over(partition by id_number order by apply_time desc) as sort_id, 
@@ -101,14 +102,8 @@ returned_terms	,
 total_overdue_count	,
 kg.total_overdue_days(return_list) as total_overdue_days,
 contacts
-
-
-
-from mortgagor_20180520 t3
-
-where id_number is not null)a
-where a.sort_id = 1
-
-
-
-limit 300;
+from kg.mortgagor_20180528 t3
+where id_number is not null
+and   source = 'ce_yrd'
+and   (product_type = '线下信用卡189-B（综）' or product_type = '线下金卡贷0.78-B（综）'))a
+where a.sort_id = 1;

@@ -1,0 +1,1 @@
+SELECT cast(int('2018' - substr(id_number, 7, 4))  as  string) as years , a.*   from whitelist_yrd_step_1
