@@ -1,4 +1,4 @@
-CREATE TABLE  whitelist_yrd_step_1 AS
+CREATE TABLE  whitelist_yrd_step_source AS
 select * from (
 select
 row_number() over(partition by id_number order by apply_time desc) as sort_id, 
