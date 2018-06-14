@@ -102,7 +102,7 @@ returned_terms	,
 total_overdue_count	,
 kg.total_overdue_days(return_list) as total_overdue_days,
 contacts
-from kg.mortgagor_20180528 t3
+from kg.mortgagor_20180613 t3
 where id_number is not null
 and   source = 'ce_yrd'
 and   (product_type = '线下信用卡189-B（综）' or product_type = '线下金卡贷0.78-B（综）') )a
@@ -219,7 +219,7 @@ returned_terms	,
 total_overdue_count	,
 kg.total_overdue_days(return_list) as total_overdue_days,
 contacts
-from kg.mortgagor_20180610 t3
+from kg.mortgagor_20180613 t3
 where id_number is not null
 and   source = 'ce_yrd' )a
 where a.sort_id = 1)i,
