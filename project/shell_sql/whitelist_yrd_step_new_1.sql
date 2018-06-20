@@ -4,7 +4,7 @@ FROM
 (SELECT
 a.*,b.id_number as tmp_1
 FROM
-whitelist_yrd_source_all a
+(select k.* from  whitelist_yrd_source_all k where  borrow_status = '还款中')  a
 LEFT JOIN
 whitelist_yrd_other_product_source b
 ON a.id_number = b.id_number)k
