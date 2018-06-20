@@ -4,7 +4,7 @@ FROM
 (SELECT
 a.*,b.id_number as tmp_1
 FROM
-(select k.* from  whitelist_yrd_source_all k where  max_overdue_days >= 30)  a
+(select k.* from  whitelist_yrd_other_product_source k where  max_overdue_days >= 30)  a
 LEFT JOIN
-whitelist_yrd_other_product_source b
+whitelist_yrd_source_all b
 ON a.id_number = b.id_number)k
