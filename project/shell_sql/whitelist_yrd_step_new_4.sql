@@ -2,12 +2,12 @@
 #设置来源表参数，不要写死
 
 CREATE TABLE  whitelist_yrd_step_new_4 AS
-SELECT k.*,if(k.tmp_1 is null,1,0) as flag_new_4
+SELECT k.*,if(k.tmp_4 is null,1,0) as flag_new_4
 FROM
 (SELECT
-a.*,b.id_number as tmp_1
+a.*,b.id_number as tmp_4
 FROM
-(select k.* from  whitelist_yrd_source_other_product k where  max_overdue_days >= 30)  a
+whitelist_yrd_step_new_2  a
 LEFT JOIN
-whitelist_yrd_source_all b
+(select k.* from  whitelist_yrd_source_other_product k where  max_overdue_days >= 30) b
 ON a.id_number = b.id_number)k
