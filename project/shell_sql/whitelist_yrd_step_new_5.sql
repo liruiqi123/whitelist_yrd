@@ -2,7 +2,7 @@
 
 
 CREATE TABLE  whitelist_yrd_step_new_5 AS
-SELECT k.*,if(k.tmp_1 is null,1,0) as new_1_flag
+SELECT k.*,if(k.tmp_1 is null,1,0) as flag_new_5
 FROM
 (SELECT
 a.*,b.transport_id as tmp_5
