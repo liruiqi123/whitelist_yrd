@@ -1,3 +1,5 @@
+#对应规则：在所有业务线条出现过最高逾期天数（单次最高非累加）≥30天的逾期
+
 CREATE TABLE  whitelist_yrd_step_new_1 AS
 SELECT k.*,if(k.tmp_1 is null,1,0) as new_1_flag
 FROM

@@ -1,16 +1,10 @@
-CREATE TABLE  whitelist_yrd_source_jhjj AS
-select distinct id_number  from kg.mortgagor_20180613 where source like '%jhjj%'
-and  process_status not like '%已结清%'
-union all
-select distinct id_number from  kg.mortgagor_20180613 where source like '%jhjj%'
-and  total_overdue_days > 0
-
-
+#对应规则
+#有“江湖救急”产品有 除结清状态以外的其他申请记录/ 在“江湖救急”产品已结（状态为已结清），但还款出现过逾期
 
 
 
 CREATE TABLE  whitelist_yrd_step_new_2 AS
-SELECT k.*,if(k.tmp_2 is null,1,0) as new_2_flag
+SELECT k.*,if(k.tmp_2 is null,1,0) as flag_new_2
 FROM
 (SELECT
 a.*,b.id_number as tmp_2
