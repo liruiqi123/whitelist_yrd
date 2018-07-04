@@ -4,6 +4,7 @@
 CREATE TABLE  whitelist_yrd_source_daihou  AS
 select
 transport_id,
+borrow_status,
 return_info['current_term'] as current_term,
 return_info['due_date'] as due_date,
 return_info['return_tim'] as return_time,
