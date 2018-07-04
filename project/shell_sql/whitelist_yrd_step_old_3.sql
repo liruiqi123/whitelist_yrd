@@ -2,12 +2,13 @@
 #应该设置表名的参数
 
 
-CREATE  TABLE  whitelist_yrd_step_old_3 as
-
-
-
-
-
-
-SELECT *, if(max_overdue_days>= 8,1,0) as flag_old_1
-FROM whitelist_yrd_step_new_5
+CREATE TABLE  whitelist_yrd_step_old_3 AS
+SELECT k.*,if(k.tmp_old_3 is null,1,0) as flag_old_3
+FROM
+(SELECT
+a.*,b.transport_id as tmp_old_3
+FROM
+whitelist_yrd_step_old_1 a
+LEFT JOIN
+whitelist_yrd_source_isOverdue b
+ON a.transport_id = b.transport_id)k
