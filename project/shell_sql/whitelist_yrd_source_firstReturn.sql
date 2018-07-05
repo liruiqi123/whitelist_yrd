@@ -4,7 +4,7 @@
 
 create table whitelist_yrd_source_firstReturn  AS
 select k.*  from (
-SELECT  row_number() over(partition by transport_id order by due_date desc) as sort_id,
+SELECT  row_number() over(partition by transport_id order by current_term) as sort_id,
 *
 FROM
 whitelist_yrd_source_daihou)k
