@@ -22,6 +22,7 @@ drop table $table1;
 
 
 
+
 CREATE  TABLE   $table1 as
 SELECT *, if(k.years> 22 and k.years <= 60,1,0) as flag_old_4
 FROM (
