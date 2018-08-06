@@ -8,7 +8,7 @@ db=whitelist_yrd
 #db=$2
 #sre_db=$3
 
-table1=whitelist_yrd_source_12_term
+table1=
 table2=ys_raw.yrd_overdue_responsibility
 
 
