@@ -20,7 +20,7 @@ select
 row_number() over(partition by apply_id order by  cast(period_num as int) desc) as sort_id,period_num,
 *
 from
-$2
+$table2
 )a
 where a.sort_id < 13;
 
