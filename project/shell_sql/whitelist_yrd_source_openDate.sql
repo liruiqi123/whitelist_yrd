@@ -16,9 +16,15 @@ drop table $table1;
 
 
 create table $table1 as
+
+
+select min(k.open_date),k.id_number
+from
+(
 select a.pboc_rep_id,a.open_date,b.id_number
 from
 ys_dw.dw_crp_loan_detail a,
 ys_dw.dw_crp_info b
-where a.pboc_rep_id = b.pboc_rep_id
+where a.pboc_rep_id = b.pboc_rep_id)k
+group by k.id_number
 "
