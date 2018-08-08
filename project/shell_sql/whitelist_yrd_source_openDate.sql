@@ -28,3 +28,21 @@ ys_dw.dw_crp_info b
 where a.pboc_rep_id = b.pboc_rep_id)k
 group by k.id_number
 "
+
+
+
+create table tmp_001 as
+select
+a.id_number,
+b.bs_client_id,
+b.credentials_number,
+d.open_date
+from
+whitelist_yrd_source_all a,
+ys_raw.clic_tc_customer b,
+ys_dw.dw_crp_info c,
+ys_dw.dw_crp_loan_detail d
+where 1=1
+and a.id_number = b.credentials_number
+and b.bs_client_id=c.bs_client_id
+and d.pboc_rep_id = c.pboc_rep_id

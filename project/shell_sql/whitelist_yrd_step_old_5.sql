@@ -11,12 +11,14 @@ db=whitelist_yrd
 max_re_s
 
 table1=whitelist_yrd_step_old_5_1_rec_ov_days
-table2=whitelist_yrd_step_old_5_1_rec_ov_days
+table2=whitelist_yrd_step_old_5_1_opendate
 table3=whitelist_yrd_step_old_5_3_max_re_st
 table4=whitelist_yrd_step_old_5_3_max_re_st_grade
 
 
 source_table=whitelist_yrd_source_12_term
+source_table2=whitelist_yrd_source_all
+source_table3=whitelist_yrd_source_opendate
 
 
 
@@ -25,7 +27,7 @@ hive -e " use $db;
 drop table $table1;
 drop table $table2;
 drop table $table3;
-drop table $table4
+drop table $table4;
 
 
 CREATE  TABLE   $table1 as
@@ -35,10 +37,16 @@ group by
 apply_id;
 
 
+CREATE  TABLE   $table2 as
+select a.* ,b.opendate as opendate from
+$source_table2 a
+left join
+$source_table3 b
+on a.id_number = b.id_number
 
 CREATE  TABLE   $table3 as
 select  * ,months_between('2018-07-06',substr(apply_time,0,10)) as max_re_st
-from whitelist_yrd_source_all;
+from $table2;
 
 
 
