@@ -18,7 +18,7 @@ drop table $table1;
 create table $table1 as
 
 
-select min(k.open_date),k.id_number
+select min(k.open_date) as  openDate,k.id_number
 from
 (
 select a.pboc_rep_id,a.open_date,b.id_number
