@@ -46,3 +46,6 @@ where 1=1
 and a.id_number = b.credentials_number
 and b.bs_client_id=c.bs_client_id
 and d.pboc_rep_id = c.pboc_rep_id
+
+
+
