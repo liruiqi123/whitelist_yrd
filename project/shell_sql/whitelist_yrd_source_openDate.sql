@@ -6,7 +6,7 @@ db=whitelist_yrd
 #db=$2
 #sre_db=$3
 
-table1=whitelist_yrd_openDate
+table1=whitelist_yrd_source_openDate
 
 
 
