@@ -8,7 +8,6 @@ newtable = whitelist_yrd_step_old_1_MaxOverdueDays
 create_day=`date +%Y-%m-%d`
 db=whitelist_yrd
 
-max_re_s
 
 table1=whitelist_yrd_step_old_5_1_rec_ov_days
 table2=whitelist_yrd_step_old_5_1_opendate
@@ -38,7 +37,7 @@ apply_id;
 
 
 CREATE  TABLE   $table2 as
-select a.* ,b.opendate as open_date from
+select a.* ,b.open_date as open_date from
 $source_table2 a
 left join
 (select id_number,min(open_date) as open_date  from
