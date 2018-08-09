@@ -15,6 +15,8 @@ table3=whitelist_yrd_step_old_5_3_max_re_st
 table4=whitelist_yrd_step_old_5_3_max_re_st_grade
 table5=whitelist_yrd_step_old_5_2_opendate_grade
 table6=whitelist_yrd_step_old_5_1_rec_ov_days_grade
+table7=whitelist_yrd_step_old_5_1_cr
+table8=whitelist_yrd_step_old_5_1_cr_grade
 
 
 
@@ -33,7 +35,8 @@ drop table $table3;
 drop table $table4;
 drop table $table5;
 drop table $table6;
-
+drop table $table7;
+drop table $table8;
 
 CREATE  TABLE   $table1 as
 select if (if(max(overdue_days) = 'null',0, max(overdue_days))>10,10,if(max(overdue_days) = 'null',0, max(overdue_days))) as rec_ov_days_grade ,apply_id
@@ -70,7 +73,7 @@ CREATE TABLE $table4 AS SELECT *,
         WHEN floor(max_re_st) <= 12 THEN 0.33611
         WHEN floor(max_re_st) = 13 THEN 0.16843
         WHEN floor(max_re_st) = 14 THEN -0.15021
-		WHEN (floor(max_re_st) >= 15 and floor(max_re_st)<=18)  THEN -0.18566
+	     	WHEN (floor(max_re_st) >= 15 and floor(max_re_st)<=18)  THEN -0.18566
         WHEN floor(max_re_st) >= 19 THEN -0.5808
     END AS max_re_st_grade FROM
     $table3;
@@ -93,33 +96,35 @@ CREATE TABLE $table5 AS SELECT *,
 
 
 
-CREATE TABLE $table6 AS SELECT a.*,b.rec_ov_days_grade
+CREATE TABLE $table6 AS SELECT a.*,  if(b.rec_ov_days_grade is null ,0,b.rec_ov_days_grade) as rec_ov_days_grade
 from
 $table5 a
 left join
 $table1 b
-on 'yrd'+a.apply_id = b.apply_id;
+on concat('yrd', b.apply_id) = a.apply_id;
+
+
 
 
 create table $table7 as
-select a.*,( -3.1352447208223 + rec_ov_days_grade*0.12462002377365 +max_re_st_grade*0.86054736843471+open_date_grade *1.09772528132205)  as Pred_2
+select a.*,( -3.1352447208223 + a.rec_ov_days_grade*0.12462002377365 +a.max_re_st_grade*0.86054736843471+a.open_date_grade *1.09772528132205)  as Pred_2
 from
 $table6;
 
 
 CREATE TABLE $table8 AS SELECT *,
 CASE
-WHEN Pred_2< -3.5495
-WHEN -3.5495=<Pred_2 and  Pred_2<-3.4193
-WHEN -3.4193=<Pred_2 and  Pred_2<-3.2095
-WHEN -3.209 =<Pred_2 and  Pred_2<-3.1321
-WHEN -3.1321=<Pred_2 and  Pred_2<-3.0008
-WHEN -3.0008=<Pred_2 and  Pred_2<-2.8996
-WHEN -2.8996=<Pred_2 and  Pred_2< -2.7802
-WHEN -2.7802=<Pred_2 and  Pred_2<-2.5351
-WHEN -2.5351=<Pred_2 and  Pred_2<-2.3033
-WHEN Pred_2>=-2.3033
-END null  AS CR_grade FROM
+WHEN Pred_2 < -3.5495  THEN 'CR1'
+WHEN Pred_2>=-3.5495  and  Pred_2 <-3.4193 THEN 'CR2'
+WHEN Pred_2>=-3.4193  and  Pred_2<-3.2095 THEN 'CR3'
+WHEN Pred_2>=-3.209   and  Pred_2<-3.1321 THEN 'CR4'
+WHEN Pred_2>=-3.1321  and  Pred_2<-3.0008 THEN 'CR5'
+WHEN Pred_2>=-3.0008  and  Pred_2<-2.8996 THEN 'CR6'
+WHEN Pred_2>=-2.8996  and  Pred_2< -2.7802 THEN 'CR7'
+WHEN Pred_2>=-2.7802  and  Pred_2<-2.5351 THEN 'CR8'
+WHEN Pred_2>=-2.5351  and  Pred_2<-2.3033 THEN 'CR9'
+WHEN Pred_2>=-2.3033 THEN 'CR10'
+END  as null  AS CR_grade FROM
 $table7;
 
 
