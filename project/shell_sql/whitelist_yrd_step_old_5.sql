@@ -41,7 +41,8 @@ CREATE  TABLE   $table2 as
 select a.* ,b.opendate as opendate from
 $source_table2 a
 left join
-$source_table3 b
+(select id_number,min(open_date) as open_date  from
+$source_table3  group by id_number)b
 on a.id_number = b.id_number
 
 CREATE  TABLE   $table3 as
