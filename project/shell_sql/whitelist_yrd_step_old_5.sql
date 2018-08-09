@@ -38,7 +38,7 @@ apply_id;
 
 
 CREATE  TABLE   $table2 as
-select a.* ,b.opendate as opendate from
+select a.* ,b.opendate as open_date from
 $source_table2 a
 left join
 (select id_number,min(open_date) as open_date  from
