@@ -14,6 +14,8 @@ table2=whitelist_yrd_step_old_5_2_opendate
 table3=whitelist_yrd_step_old_5_3_max_re_st
 table4=whitelist_yrd_step_old_5_3_max_re_st_grade
 table5=whitelist_yrd_step_old_5_2_opendate_grade
+table6=whitelist_yrd_step_old_5_1_rec_ov_days_grade
+
 
 
 source_table=whitelist_yrd_source_12_term
@@ -85,6 +87,17 @@ CREATE TABLE $table5 AS SELECT *,
           WHEN floor(open_date) >= 95   THEN -0.16233
     END AS open_date_grade FROM
     $table4;
+
+
+
+CREATE TABLE $table5 AS SELECT a.*,b.rec_ov_days
+from
+$table5 a
+left join
+$table1 b
+on a.apply_id = b.apply_id;
+
+
 
 
 
