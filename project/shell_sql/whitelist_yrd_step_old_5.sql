@@ -26,6 +26,7 @@ source_table3=whitelist_yrd_source_opendate
 
 hive -e " use $db;
 
+
 drop table $table1;
 drop table $table2;
 drop table $table3;
@@ -92,22 +93,39 @@ CREATE TABLE $table5 AS SELECT *,
 
 
 
-CREATE TABLE $table6 AS SELECT a.*,b.rec_ov_days
+CREATE TABLE $table6 AS SELECT a.*,b.rec_ov_days_grade
 from
 $table5 a
 left join
 $table1 b
-on a.apply_id = b.apply_id;
+on 'yrd'+a.apply_id = b.apply_id;
 
 
 create table $table7 as
-select a.*,
+select a.*,( -3.1352447208223 + rec_ov_days_grade*0.12462002377365 +max_re_st_grade*0.86054736843471+open_date_grade *1.09772528132205)  as Pred_2
+from
+$table6;
 
 
-
-
-
-
+CREATE TABLE $table8 AS SELECT *,
+CASE
+WHEN Pred_2< -3.5495
+WHEN -3.5495=<Pred_2 and  Pred_2<-3.4193
+WHEN -3.4193=<Pred_2 and  Pred_2<-3.2095
+WHEN -3.209 =<Pred_2 and  Pred_2<-3.1321
+WHEN -3.1321=<Pred_2 and  Pred_2<-3.0008
+WHEN -3.0008=<Pred_2 and  Pred_2<-2.8996
+WHEN -2.8996=<Pred_2 and  Pred_2< -2.7802
+WHEN -2.7802=<Pred_2 and  Pred_2<-2.5351
+WHEN -2.5351=<Pred_2 and  Pred_2<-2.3033
+WHEN Pred_2>=-2.3033
+END null  AS CR_grade FROM
+$table7;
 
 
 "
+
+
+
+
+
