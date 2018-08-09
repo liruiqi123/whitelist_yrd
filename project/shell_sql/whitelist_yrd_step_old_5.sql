@@ -10,9 +10,10 @@ db=whitelist_yrd
 
 
 table1=whitelist_yrd_step_old_5_1_rec_ov_days
-table2=whitelist_yrd_step_old_5_1_opendate
+table2=whitelist_yrd_step_old_5_2_opendate
 table3=whitelist_yrd_step_old_5_3_max_re_st
 table4=whitelist_yrd_step_old_5_3_max_re_st_grade
+table5=whitelist_yrd_step_old_5_2_opendate_grade
 
 
 source_table=whitelist_yrd_source_12_term
@@ -36,17 +37,25 @@ group by
 apply_id;
 
 
+
+
+
 CREATE  TABLE   $table2 as
-select a.* ,b.open_date as open_date from
+select a.* , months_between('2018-07-06',substr(b.open_date,0,10))  as open_date from
 $source_table2 a
 left join
 (select id_number,min(open_date) as open_date  from
 $source_table3  group by id_number)b
-on a.id_number = b.id_number
+on a.id_number = b.id_number;
+
+
+
 
 CREATE  TABLE   $table3 as
 select  * ,months_between('2018-07-06',substr(apply_time,0,10)) as max_re_st
 from $table2;
+
+
 
 
 
@@ -60,6 +69,22 @@ CREATE TABLE $table4 AS SELECT *,
         WHEN floor(max_re_st) >= 19 THEN -0.5808
     END AS max_re_st_grade FROM
     $table3;
+
+
+
+
+
+
+CREATE TABLE $table5 AS SELECT *,
+    CASE
+        WHEN floor(open_date) IS NULL THEN -0.14097
+        WHEN floor(open_date) >= 0  and floor(open_date)<= 32 THEN 0.41466
+         WHEN floor(open_date) >= 33  and floor(open_date)<= 56 THEN 0.03623
+          WHEN floor(open_date) >= 57  and floor(open_date)<= 74 THEN 0.0779
+          WHEN floor(open_date) >= 75  and floor(open_date)<= 94 THEN -0.12919
+          WHEN floor(open_date) >= 95   THEN -0.16233
+    END AS -0.16233 FROM
+    $table4;
 
 
 
