@@ -17,21 +17,6 @@ drop table $table1;
 
 create table $table1 as
 
-
-select min(k.open_date) as  openDate,k.id_number
-from
-(
-select a.pboc_rep_id,a.open_date,b.id_number
-from
-ys_dw.dw_crp_loan_detail a,
-ys_dw.dw_crp_info b
-where a.pboc_rep_id = b.pboc_rep_id)k
-group by k.id_number
-"
-
-
-
-create table tmp_001 as
 select
 a.id_number,
 b.bs_client_id,
@@ -46,6 +31,12 @@ where 1=1
 and a.id_number = b.credentials_number
 and b.bs_client_id=c.bs_client_id
 and d.pboc_rep_id = c.pboc_rep_id
+
+
+
+"
+
+
 
 
 
