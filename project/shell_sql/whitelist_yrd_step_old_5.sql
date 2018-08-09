@@ -83,7 +83,7 @@ CREATE TABLE $table5 AS SELECT *,
           WHEN floor(open_date) >= 57  and floor(open_date)<= 74 THEN 0.0779
           WHEN floor(open_date) >= 75  and floor(open_date)<= 94 THEN -0.12919
           WHEN floor(open_date) >= 95   THEN -0.16233
-    END AS -0.16233 FROM
+    END AS open_date_grade FROM
     $table4;
 
 
