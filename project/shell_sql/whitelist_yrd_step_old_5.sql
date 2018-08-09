@@ -35,7 +35,7 @@ drop table $table6;
 
 
 CREATE  TABLE   $table1 as
-select if (if(max(overdue_days) = 'null',0, max(overdue_days))>10,10,if(max(overdue_days) = 'null',0, max(overdue_days))) as rec_ov_days ,apply_id
+select if (if(max(overdue_days) = 'null',0, max(overdue_days))>10,10,if(max(overdue_days) = 'null',0, max(overdue_days))) as rec_ov_days_grade ,apply_id
 from $source_table
 group by
 apply_id;
@@ -92,12 +92,18 @@ CREATE TABLE $table5 AS SELECT *,
 
 
 
-CREATE TABLE $table5 AS SELECT a.*,b.rec_ov_days
+CREATE TABLE $table6 AS SELECT a.*,b.rec_ov_days
 from
 $table5 a
 left join
 $table1 b
 on a.apply_id = b.apply_id;
+
+
+create table $table7 as
+select a.*,
+
+
 
 
 
