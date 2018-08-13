@@ -8,6 +8,10 @@ table1=whitelist_yrd_step_old_6_1_grade
 table2=whitelist_yrd_step_old_6_2_grade
 table3=whitelist_yrd_step_old_6_3_grade
 
+table4=whitelist_yrd_step_old_6
+
+
+
 
 
 source_table=whitelist_yrd_step_old_5_1_cr_grade
@@ -50,7 +54,20 @@ select
 (cr_rmb-reloanrepay) as cr_tmp2,
 (190000-reloanrepay) as cr_tmp3
 from
-$table2
+$table2;
+
+
+
+create table  $table4
+as
+select decision_inhand_amount,cr_tmp1,cr_tmp2,cr_tmp3,if (decision_inhand_amount <150000 , if(cr_tmp1<cr_tmp2,cr_tmp1,cr_tmp2),if(cr_tmp1<cr_tmp3,cr_tmp1,cr_tmp3)) as flag_old_6
+from whitelist_yrd_step_old_6_3_grade
+
+
+
+
+
+
 
 "
 
