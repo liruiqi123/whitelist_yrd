@@ -109,7 +109,16 @@ contacts
 from kg.mortgagor_20180716 t3
 where id_number is not null
 and   source = 'ce_yrd'
-and   (product_type = '线下信用卡189-B（综）' or product_type = '线下金卡贷0.78-B（综）') )a
+and   (product_type = '线下信用卡189-B（综）'
+or product_type = '线下金卡贷0.78-B（综）'
+or product_type = '金卡贷0.78'
+or product_type = '信用卡129'
+or product_type = '房产129'
+or product_type = '线下信用卡189'
+or product_type = '线下信用卡专案189'
+or product_type = '线下信用卡189-B'
+or product_type = '线下金卡贷0.78-B'
+)a
 where a.sort_id = 1;
 
 
