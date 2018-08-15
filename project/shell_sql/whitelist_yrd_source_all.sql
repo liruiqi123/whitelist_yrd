@@ -117,7 +117,7 @@ or product_type = '房产129'
 or product_type = '线下信用卡189'
 or product_type = '线下信用卡专案189'
 or product_type = '线下信用卡189-B'
-or product_type = '线下金卡贷0.78-B'
+or product_type = '线下金卡贷0.78-B')
 )a
 where a.sort_id = 1;
 
