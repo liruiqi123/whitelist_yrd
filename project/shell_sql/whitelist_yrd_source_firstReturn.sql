@@ -18,10 +18,28 @@ drop table $table1;
 
 
 create table $table1  AS
+
+
+select m.*,n.overdue_no_responsibility
+from
+(
 select k.*  from (
 SELECT  row_number() over(partition by transport_id order by current_term) as sort_id,
 *
 FROM
 $table2)k
 where k.sort_id <2
+)m
+left join
+ys_raw.yrd_overdue_responsibility n
+on (
+ concat('yrd', n.apply_id) = m.apply_id
+ and a.current_term = b.period_num)
+
+)
+
+
+
+
+
 "

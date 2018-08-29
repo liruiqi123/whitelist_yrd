@@ -18,6 +18,7 @@ drop table $table1;
 CREATE TABLE  $table1  AS
 select
 transport_id,
+apply_id, 
 borrow_status,
 return_info['current_term'] as current_term,
 return_info['due_date'] as due_date,
