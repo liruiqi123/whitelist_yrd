@@ -109,15 +109,25 @@ contacts
 from kg.mortgagor_20180716 t3
 where id_number is not null
 and   source = 'ce_yrd'
-and   (product_type = '线下信用卡189-B（综）'
-or product_type = '线下金卡贷0.78-B（综）'
-or product_type = '金卡贷0.78'
-or product_type = '信用卡129'
-or product_type = '房产129'
-or product_type = '线下信用卡189'
-or product_type = '线下信用卡专案189'
-or product_type = '线下信用卡189-B'
-or product_type = '线下金卡贷0.78-B')
+and   (1=1
+or product_type = '金卡贷0.78',
+or product_type = '金卡贷0.78-B',
+or product_type = '房贷129',
+or product_type = '房贷专案(旧)',
+or product_type = '信用卡129',
+or product_type = '信用卡189',
+or product_type = '信用卡专案(旧)',
+or product_type = '风险定价1.29',
+or product_type = '风险定价1.59',
+or product_type = '风险定价1.77',
+or product_type = '风险定价1.89',
+or product_type = '风险定价2.19',
+or product_type = '线下追加贷款0.78',
+or product_type = '线下追加贷款1.29',
+or product_type = '线下追加贷款1.59',
+or product_type = '线下追加贷款1.77',
+or product_type = '线下追加贷款1.89',
+or product_type = '线下追加贷款2.19')
 )a
 where a.sort_id = 1;
 
