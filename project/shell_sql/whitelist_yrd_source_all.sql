@@ -263,6 +263,15 @@ union
 select * from whitelist_yrd_source_2;
 
 
+CREATE TABLE  whitelist_yrd_source_total AS
+select k.* from
+(select
+row_number() over(partition by id_number order by cashier_time desc) as sort2_id,
+*
+from whitelist_yrd_source_all)k
+where k.sort2_id=1
+
+
 
 
 
