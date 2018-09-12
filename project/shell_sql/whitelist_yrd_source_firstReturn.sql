@@ -20,7 +20,7 @@ drop table $table1;
 create table $table1  AS
 
 
-select m.*,n.overdue_no_responsibility
+select m.*,n.overdue_no_responsibility,t.payBackDate,t.repaymentAmount
 from
 (
 select k.*  from (
@@ -37,6 +37,22 @@ on (
  and a.current_term = b.period_num)
 
 )
+left join
+(
+select
+apply_id,
+min(period_end_time) as payBackDate,
+sum(realReturnCorpus) as repaymentAmount
+from ys_raw.yrd_overdue_responsibility
+where period_end_time <'2018-09-12'
+group by apply_id
+)t
+on (
+ concat('yrd', t.apply_id) = m.apply_id
+)
+
+)m
+
 
 
 
